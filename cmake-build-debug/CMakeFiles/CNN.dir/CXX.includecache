@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/stanislaw/repositories/CNN/main.cpp
+src/cnn/utils/shape.h
+/home/stanislaw/repositories/CNN/src/cnn/utils/shape.h
+iomanip
+-
+iostream
+-
+
+/home/stanislaw/repositories/CNN/src/cnn/utils/shape.h
+array
+-
+cassert
+-
+
