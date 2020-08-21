@@ -57,4 +57,83 @@ namespace cnn {
         std::array<T, 3> v_;
     };
 
+    struct index3d_t : point3d_t<int> {
+    public:
+        index3d_t() = default;
+
+        index3d_t(int x, int y, int z)
+            : point3d_t(x, y, z) {}
+
+        index3d_t(index3d_t const& other)
+            : point3d_t(other.v_) {}
+
+        index3d_t(std::array<int, 3> const& v)
+            : point3d_t(v) {}
+
+    public:
+        inline index3d_t add(int x, int y, int z) const
+        {
+            return index3d_t(v_[0] + x, v_[1] + y, v_[2] + z);
+        }
+
+        inline index3d_t add(index3d_t const& other)
+        {
+            return index3d_t(v_[0] + other.v_[0], v_[1] + other.v_[1], v_[2] + other.v_[2]);
+        }
+
+        inline index3d_t inc(dim_type d, int a) const
+        {
+            std::array<int, 3> v(v_);
+            v[(size_t)d] += a;
+            return index3d_t(v);
+        }
+
+        inline index3d_t set(dim_type d, int a) const
+        {
+            std::array<int, 3> v(v_);
+            v[(size_t)d] = a;
+            return index3d_t(v);
+        }
+    };
+
+    struct shape3d_t : point3d_t<int>
+    {
+    private :
+        enum dim
+        {
+            X = 0,
+            Y = 1,
+            Z = 2
+        };
+
+    public:
+        shape3d_t() = default;
+
+        shape3d_t(int x, int y, int z)
+            : point3d_t(x, y, z) {}
+
+        shape3d_t(shape3d_t const& other)
+            : point3d_t(other) {}
+
+    public:
+        inline size_t dim() const
+        {
+            return (v_[X] > 1 ? 1 : 0) +
+                    (v_[Y] > 1 ? 1 : 0) +
+                    (v_[Z] > 1 ? 1 : 0);
+        }
+
+        inline int capacity() const { return v_[X] * v_[Y] * v_[Z]; }
+
+        inline int index(int x, int y, int z) const
+        {
+            return  x * v_[Z] * v_[Y] + y * v_[Z] + z;
+        }
+
+        inline int index(point3d_t<int> const& point) const
+        {
+            return index(point.x(), point.y(), point.z());
+        }
+    };
+
 }
