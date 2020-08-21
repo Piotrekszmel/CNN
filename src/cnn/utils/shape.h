@@ -2,6 +2,7 @@
 
 #include <array>
 #include <cassert>
+#include <iostream>
 
 namespace cnn {
 
@@ -134,6 +135,56 @@ namespace cnn {
         {
             return index(point.x(), point.y(), point.z());
         }
+    };
+
+    static inline shape3d_t shape_row(int size) { return shape3d_t(size, 1, 1); }
+
+    class index3d_iterator {
+    public:
+        index3d_iterator(index3d_t const& start,
+                         index3d_t const& end,
+                         index3d_t const& step=index3d_t(1, 1, 1)):
+                start_(start),
+                end_(end),
+                current_(start),
+                step_(step),
+                moves_(0),
+                moves_max_(DIM(start.x(), end.x(), step.x()) *
+                           DIM(start.y(), end.y(), step.y()) *
+                           DIM(start.z(), end.z(), step.z())) {}
+
+    public:
+        bool is_valid() const { return moves_ < moves_max_; }
+        size_t steps_count() const { return moves_max_; }
+        index3d_iterator& operator++() { move_next(); return *this; }
+        index3d_t& operator*() { return current_; }
+        index3d_t const& operator*() const { return current_; }
+
+    private:
+        void move_next() {
+            assert(is_valid());
+
+            auto& idx = current_.data();
+            auto& step = step_.data();
+            auto& end = end_.data();
+            auto& start = start_.data();
+
+            for (size_t j = 2; j >= 0; --j)
+            {
+                idx[j] += step[j];
+                if (idx[j] <= end[j]) { break; }
+                idx[j] = start[j];
+            }
+            moves_++;
+        }
+
+    private:
+        index3d_t start_;
+        index3d_t end_;
+        index3d_t current_;
+        index3d_t step_;
+        size_t moves_;
+        size_t moves_max_;
     };
 
 }

@@ -4,7 +4,19 @@
 
 int main() {
 
-    cnn::shape3d_t shape{};
-    std::cout << shape.x() << ' ' << shape.y() << ' ' << shape.z() << '\n';
+    cnn::index3d_t start{ 1, 1, 1 };
+    cnn::index3d_t end{ 4, 4, 4 };
+    cnn::index3d_t step{ 1, 1, 1 };
+
+    cnn::index3d_iterator it{start, end, step};
+
+    ++it;
+    ++it;
+    ++it;
+    ++it;
+    ++it;
+    ++it;
+    ++it;
+
     return 0;
 }
