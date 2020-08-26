@@ -77,7 +77,7 @@ namespace cnn {
             return index3d_t(v_[0] + x, v_[1] + y, v_[2] + z);
         }
 
-        inline index3d_t add(index3d_t const& other)
+        inline index3d_t add(index3d_t const& other) const
         {
             return index3d_t(v_[0] + other.v_[0], v_[1] + other.v_[1], v_[2] + other.v_[2]);
         }
@@ -97,8 +97,7 @@ namespace cnn {
         }
     };
 
-    struct shape3d_t : point3d_t<int>
-    {
+    struct shape3d_t : point3d_t<int> {
     private :
         enum dim
         {

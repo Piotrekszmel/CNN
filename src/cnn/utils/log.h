@@ -1,8 +1,10 @@
-//
-// Created by stanislaw on 22.08.2020.
-//
+#pragma once
 
-#ifndef CNN_LOG_H
-#define CNN_LOG_H
+namespace cnn {
 
-#endif //CNN_LOG_H
+    template<typename T>
+
+    void log(const char *fmt, ...);
+
+
+}
