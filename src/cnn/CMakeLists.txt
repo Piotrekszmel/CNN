@@ -7,7 +7,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(SOURCES
         utils/shape.h
         utils/utils.h
-        utils/utils.cpp)
+        utils/utils.cpp
+        utils/log.h
+        utils/array3d.h
+        utils/array3d_math.h)
 
 add_library(cnn SHARED STATIC ${SOURCES})
 

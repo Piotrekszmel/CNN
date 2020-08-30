@@ -11,7 +11,10 @@ add_executable(CNN
                main.cpp
                src/cnn/utils/utils.h
                src/cnn/utils/utils.cpp
-               src/cnn/utils/shape.h)
+               src/cnn/utils/shape.h
+               src/cnn/utils/log.h
+               src/cnn/utils/array3d.h
+               src/cnn/utils/array3d_math.h)
 
 
 if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
